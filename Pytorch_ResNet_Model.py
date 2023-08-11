@@ -1,7 +1,9 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from torch.utils.data import DataLoader
 
+import CQ500Dataloader_Pytorch
 # 定义基本的ResNet Block
 class BasicBlock(nn.Module):
     def __init__(self, in_channels, out_channels, stride=1):
@@ -130,6 +132,10 @@ resnet18_binary = ResNet18Binary()  # 这里使用之前定义的ResNet18Binary�
 # 定义损失函数和优化器
 criterion = nn.BCELoss()  # 二元交叉熵损失函数
 optimizer = optim.Adam(resnet18_binary.parameters(), lr=0.001)
+dataloader = CQ500Dataloader_Pytorch.dataloader
+
+# dataset = CQ500Dataloader_Pytorch.CT_Dataset(".",)
+# dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
 
 # 训练模型
 num_epochs = 10
